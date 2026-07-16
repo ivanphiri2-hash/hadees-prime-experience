@@ -5,6 +5,7 @@ import {
   CheckCircle2, Star, Quote,
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { BusinessSolutions } from "@/components/business-solutions";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -25,7 +26,7 @@ function Home() {
     <main>
       <Hero />
       <TrustBar />
-      <Services />
+      <BusinessSolutions />
       <Metrics />
       <Compliance />
       <Process />
