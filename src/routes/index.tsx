@@ -6,6 +6,7 @@ import {
 } from "lucide-react";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BusinessSolutions } from "@/components/business-solutions";
+import { IvanOS } from "@/components/ivan-os";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -27,6 +28,7 @@ function Home() {
       <Hero />
       <TrustBar />
       <BusinessSolutions />
+      <IvanOS />
       <Metrics />
       <Compliance />
       <Process />
