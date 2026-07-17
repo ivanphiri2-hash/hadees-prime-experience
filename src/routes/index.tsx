@@ -28,6 +28,7 @@ function Home() {
       <Hero />
       <TrustBar />
       <BusinessSolutions />
+      <IvanOS />
       <Metrics />
       <Compliance />
       <Process />
