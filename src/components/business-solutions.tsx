@@ -6,6 +6,8 @@ import {
   ArrowRight, Sparkles, Check, X, Zap, Clock, Award, Users, Lock, MapPin,
   MessageCircle,
 } from "lucide-react";
+import { useSiteContact, whatsappHref } from "@/lib/site-config";
+
 
 /* ============================================================
    BUSINESS SOLUTIONS — Layout 2
