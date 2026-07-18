@@ -82,9 +82,12 @@ function Contact() {
         <aside className="space-y-6">
           <div className="rounded-2xl border border-border bg-[var(--elevated)] p-8">
             <MapPin className="size-5 text-[color:var(--gold)]" />
-            <p className="mt-4 font-display text-2xl">Johannesburg HQ</p>
-            <p className="mt-2 text-sm text-muted-foreground">Rosebank, GP · By appointment only.<br />Remote-first across all nine provinces.</p>
+            <p className="mt-4 font-display text-2xl">{c.city} HQ</p>
+            <p className="mt-2 text-sm text-muted-foreground">{c.addressLine1}<br />{c.addressLine2}<br />{c.city}, {c.postalCode}<br />{c.country}</p>
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapsQuery)}`} target="_blank" rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground">Open in Maps <ArrowRight className="size-3.5" /></a>
           </div>
+
           <div className="rounded-2xl border border-border bg-card p-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Response times</p>
             <ul className="mt-4 space-y-3 text-sm">
