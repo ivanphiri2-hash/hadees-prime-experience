@@ -6,8 +6,11 @@ import {
   MessageCircle, CheckCircle2, Cpu, Building2, Boxes, Store, GraduationCap,
   Stethoscope, Factory, Briefcase, HardHat, Zap, Bell, TrendingUp, CircleDot,
 } from "lucide-react";
+import { useSiteContact, whatsappHref, mailto } from "@/lib/site-config";
+import { ScheduleDemoModal } from "@/components/schedule-demo-modal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
 
 export function IvanOS() {
   return (
