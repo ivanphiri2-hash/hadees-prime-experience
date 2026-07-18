@@ -496,7 +496,11 @@ function ImmersiveCTA() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <MagneticButton to="/contact" variant="gold">Get started <ArrowRight className="size-4" /></MagneticButton>
-          <a href="https://wa.me/27000000000" target="_blank" rel="noreferrer"
+          <a href={`mailto:${contact.email}?subject=Project%20enquiry`}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur hover:bg-white/10">
+            Email us
+          </a>
+          <a href={whatsappHref(contact, "Hi Hadees Trading, I'd like a quote.")} target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur hover:bg-white/10">
             <MessageCircle className="size-4" /> WhatsApp us
           </a>
@@ -505,6 +509,7 @@ function ImmersiveCTA() {
             Request quote
           </Link>
         </div>
+
       </div>
     </div>
   );
