@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Mail, Phone, MapPin, ArrowRight, MessageCircle, Send } from "lucide-react";
 import { toast } from "sonner";
+import { formatAddress, mailto, useSiteContact, whatsappHref } from "@/lib/site-config";
+
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
