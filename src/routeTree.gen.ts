@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TendersRouteImport } from './routes/tenders'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as IvanOsRouteImport } from './routes/ivan-os'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
@@ -24,6 +25,11 @@ const TendersRoute = TendersRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IvanOsRoute = IvanOsRouteImport.update({
+  id: '/ivan-os',
+  path: '/ivan-os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsRoute = InsightsRouteImport.update({
@@ -52,6 +58,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
 }
@@ -60,6 +67,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
 }
@@ -69,6 +77,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
 }
@@ -79,16 +88,25 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/insights'
+    | '/ivan-os'
     | '/services'
     | '/tenders'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/insights' | '/services' | '/tenders'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insights'
+    | '/ivan-os'
+    | '/services'
+    | '/tenders'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
     | '/insights'
+    | '/ivan-os'
     | '/services'
     | '/tenders'
   fileRoutesById: FileRoutesById
@@ -98,6 +116,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   InsightsRoute: typeof InsightsRoute
+  IvanOsRoute: typeof IvanOsRoute
   ServicesRoute: typeof ServicesRoute
   TendersRoute: typeof TendersRoute
 }
@@ -116,6 +135,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ivan-os': {
+      id: '/ivan-os'
+      path: '/ivan-os'
+      fullPath: '/ivan-os'
+      preLoaderRoute: typeof IvanOsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights': {
@@ -154,6 +180,7 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   InsightsRoute: InsightsRoute,
+  IvanOsRoute: IvanOsRoute,
   ServicesRoute: ServicesRoute,
   TendersRoute: TendersRoute,
 }
