@@ -455,7 +455,9 @@ function TrustGrid() {
 /* ---------------- Immersive CTA ---------------- */
 
 function ImmersiveCTA() {
+  const contact = useSiteContact();
   return (
+
     <div className="mt-28 relative overflow-hidden rounded-[32px] border border-[rgba(15,23,42,0.08)] p-10 sm:p-16"
       style={{ background: "radial-gradient(1000px 500px at 20% 20%, rgba(37,99,235,0.35), transparent 60%), radial-gradient(800px 400px at 80% 80%, rgba(245,158,11,0.25), transparent 60%), linear-gradient(180deg, #0A2540, #0B1220)" }}
     >
