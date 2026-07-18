@@ -3,6 +3,8 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Mail, Phone, MapPin, ArrowRight, MessageCircle, Send } from "lucide-react";
 import { toast } from "sonner";
+import { formatAddress, mailto, useSiteContact, whatsappHref } from "@/lib/site-config";
+
 
 export const Route = createFileRoute("/contact")({
   head: () => ({
@@ -19,6 +21,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const c = useSiteContact();
+
   const [sending, setSending] = useState(false);
   return (
     <main className="pt-32">
@@ -34,18 +38,19 @@ function Contact() {
 
       <section className="mx-auto grid max-w-6xl gap-4 px-6 pb-16 md:grid-cols-3">
         {[
-          { icon: Mail, k: "Email", v: "hello@hadees.trading", href: "mailto:hello@hadees.trading" },
-          { icon: Phone, k: "Phone", v: "+27 00 000 0000", href: "tel:+27000000000" },
-          { icon: MessageCircle, k: "WhatsApp", v: "Chat now", href: "https://wa.me/27000000000" },
-        ].map((c) => (
-          <a key={c.k} href={c.href} className="group rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/30">
-            <div className="grid size-10 place-items-center rounded-lg border border-border bg-background"><c.icon className="size-4" /></div>
-            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{c.k}</p>
-            <p className="mt-1 font-display text-2xl">{c.v}</p>
+          { icon: Mail, k: "Email", v: c.email, href: mailto(c) },
+          { icon: Phone, k: "Phone", v: c.phone, href: c.phoneHref },
+          { icon: MessageCircle, k: "WhatsApp", v: "Chat now", href: whatsappHref(c) },
+        ].map((card) => (
+          <a key={card.k} href={card.href} className="group rounded-2xl border border-border bg-card p-6 transition-colors hover:border-foreground/30">
+            <div className="grid size-10 place-items-center rounded-lg border border-border bg-background"><card.icon className="size-4" /></div>
+            <p className="mt-5 font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">{card.k}</p>
+            <p className="mt-1 font-display text-2xl">{card.v}</p>
             <p className="mt-4 inline-flex items-center gap-1 text-sm text-foreground/80">Open <ArrowRight className="size-3.5 transition-transform group-hover:translate-x-0.5" /></p>
           </a>
         ))}
       </section>
+
 
       <section className="mx-auto grid max-w-6xl gap-12 px-6 pb-32 lg:grid-cols-[1.1fr_1fr]">
         <motion.form
@@ -77,9 +82,12 @@ function Contact() {
         <aside className="space-y-6">
           <div className="rounded-2xl border border-border bg-[var(--elevated)] p-8">
             <MapPin className="size-5 text-[color:var(--gold)]" />
-            <p className="mt-4 font-display text-2xl">Johannesburg HQ</p>
-            <p className="mt-2 text-sm text-muted-foreground">Rosebank, GP · By appointment only.<br />Remote-first across all nine provinces.</p>
+            <p className="mt-4 font-display text-2xl">{c.city} HQ</p>
+            <p className="mt-2 text-sm text-muted-foreground">{c.addressLine1}<br />{c.addressLine2}<br />{c.city}, {c.postalCode}<br />{c.country}</p>
+            <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapsQuery)}`} target="_blank" rel="noreferrer"
+              className="mt-4 inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground">Open in Maps <ArrowRight className="size-3.5" /></a>
           </div>
+
           <div className="rounded-2xl border border-border bg-card p-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Response times</p>
             <ul className="mt-4 space-y-3 text-sm">

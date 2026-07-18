@@ -11,10 +11,12 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TendersRouteImport } from './routes/tenders'
 import { Route as ServicesRouteImport } from './routes/services'
+import { Route as IvanOsRouteImport } from './routes/ivan-os'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 
 const TendersRoute = TendersRouteImport.update({
   id: '/tenders',
@@ -24,6 +26,11 @@ const TendersRoute = TendersRouteImport.update({
 const ServicesRoute = ServicesRouteImport.update({
   id: '/services',
   path: '/services',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IvanOsRoute = IvanOsRouteImport.update({
+  id: '/ivan-os',
+  path: '/ivan-os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsRoute = InsightsRouteImport.update({
@@ -46,22 +53,31 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSettingsRoute = AdminSettingsRouteImport.update({
+  id: '/admin/settings',
+  path: '/admin/settings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/settings': typeof AdminSettingsRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/settings': typeof AdminSettingsRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -69,8 +85,10 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
   '/insights': typeof InsightsRoute
+  '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/settings': typeof AdminSettingsRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -79,18 +97,30 @@ export interface FileRouteTypes {
     | '/about'
     | '/contact'
     | '/insights'
+    | '/ivan-os'
     | '/services'
     | '/tenders'
+    | '/admin/settings'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/contact' | '/insights' | '/services' | '/tenders'
+  to:
+    | '/'
+    | '/about'
+    | '/contact'
+    | '/insights'
+    | '/ivan-os'
+    | '/services'
+    | '/tenders'
+    | '/admin/settings'
   id:
     | '__root__'
     | '/'
     | '/about'
     | '/contact'
     | '/insights'
+    | '/ivan-os'
     | '/services'
     | '/tenders'
+    | '/admin/settings'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -98,8 +128,10 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
   InsightsRoute: typeof InsightsRoute
+  IvanOsRoute: typeof IvanOsRoute
   ServicesRoute: typeof ServicesRoute
   TendersRoute: typeof TendersRoute
+  AdminSettingsRoute: typeof AdminSettingsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -116,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/services'
       fullPath: '/services'
       preLoaderRoute: typeof ServicesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/ivan-os': {
+      id: '/ivan-os'
+      path: '/ivan-os'
+      fullPath: '/ivan-os'
+      preLoaderRoute: typeof IvanOsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights': {
@@ -146,6 +185,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/settings': {
+      id: '/admin/settings'
+      path: '/admin/settings'
+      fullPath: '/admin/settings'
+      preLoaderRoute: typeof AdminSettingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -154,8 +200,10 @@ const rootRouteChildren: RootRouteChildren = {
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
   InsightsRoute: InsightsRoute,
+  IvanOsRoute: IvanOsRoute,
   ServicesRoute: ServicesRoute,
   TendersRoute: TendersRoute,
+  AdminSettingsRoute: AdminSettingsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

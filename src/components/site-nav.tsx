@@ -8,10 +8,11 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/tenders", label: "Tenders" },
+  { to: "/ivan-os", label: "IVAN OS" },
   { to: "/about", label: "About" },
-  { to: "/insights", label: "Insights" },
   { to: "/contact", label: "Contact" },
 ] as const;
+
 
 export function SiteNav({ theme, onToggleTheme }: { theme: "dark" | "light"; onToggleTheme: () => void }) {
   const [scrolled, setScrolled] = useState(false);

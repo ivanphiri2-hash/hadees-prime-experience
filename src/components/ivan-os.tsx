@@ -6,8 +6,11 @@ import {
   MessageCircle, CheckCircle2, Cpu, Building2, Boxes, Store, GraduationCap,
   Stethoscope, Factory, Briefcase, HardHat, Zap, Bell, TrendingUp, CircleDot,
 } from "lucide-react";
+import { useSiteContact, whatsappHref, mailto } from "@/lib/site-config";
+import { ScheduleDemoModal } from "@/components/schedule-demo-modal";
 
 const EASE = [0.16, 1, 0.3, 1] as const;
+
 
 export function IvanOS() {
   return (
@@ -737,6 +740,8 @@ function Roadmap() {
 /* ---------------- Final CTA ---------------- */
 
 function FinalCTA() {
+  const contact = useSiteContact();
+  const [open, setOpen] = useState(false);
   return (
     <div className="relative px-6 py-32">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-white/10 p-10 sm:p-20 text-center"
@@ -749,16 +754,19 @@ function FinalCTA() {
           <motion.span initial={{ opacity: 0, y: 20, filter: "blur(10px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.15, ease: EASE }} className="block italic text-[#F59E0B]">Grow Faster.</motion.span>
           <motion.span initial={{ opacity: 0, y: 20, filter: "blur(10px)" }} whileInView={{ opacity: 1, y: 0, filter: "blur(0px)" }} viewport={{ once: true }} transition={{ duration: 0.8, delay: 0.3, ease: EASE }} className="block">Automate Everything.</motion.span>
         </h3>
-        <p className="relative mx-auto mt-8 max-w-xl text-white/70">Transform your business with AI-powered systems built by HADEES TRADING PTY LTD.</p>
+        <p className="relative mx-auto mt-8 max-w-xl text-white/70">Book a live IVAN OS demo tailored to your workflows — hosted by a HADEES engineer.</p>
         <div className="relative mt-10 flex flex-wrap justify-center gap-3">
-          <a href="#ivan-os" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90">Explore IVAN OS <ArrowRight className="size-4" /></a>
-          <a href="/contact" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10">Book consultation</a>
-          <a href="https://wa.me/27000000000" target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[oklch(0.62_0.16_150)] px-6 py-3 text-sm font-medium text-white hover:opacity-90"><MessageCircle className="size-4" /> WhatsApp us</a>
+          <button onClick={() => setOpen(true)} className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90">Schedule demo <ArrowRight className="size-4" /></button>
+          <a href="/ivan-os" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10">Explore IVAN OS</a>
+          <a href={mailto(contact, "IVAN OS enquiry")} className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10">Email us</a>
+          <a href={whatsappHref(contact, "Hi, I'd like to know more about IVAN OS.")} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full bg-[oklch(0.62_0.16_150)] px-6 py-3 text-sm font-medium text-white hover:opacity-90"><MessageCircle className="size-4" /> WhatsApp</a>
         </div>
       </div>
+      <ScheduleDemoModal open={open} onClose={() => setOpen(false)} />
     </div>
   );
 }
+
 
 /* ---------------- helpers ---------------- */
 

@@ -6,6 +6,8 @@ import {
   ArrowRight, Sparkles, Check, X, Zap, Clock, Award, Users, Lock, MapPin,
   MessageCircle,
 } from "lucide-react";
+import { useSiteContact, whatsappHref } from "@/lib/site-config";
+
 
 /* ============================================================
    BUSINESS SOLUTIONS — Layout 2
@@ -453,7 +455,9 @@ function TrustGrid() {
 /* ---------------- Immersive CTA ---------------- */
 
 function ImmersiveCTA() {
+  const contact = useSiteContact();
   return (
+
     <div className="mt-28 relative overflow-hidden rounded-[32px] border border-[rgba(15,23,42,0.08)] p-10 sm:p-16"
       style={{ background: "radial-gradient(1000px 500px at 20% 20%, rgba(37,99,235,0.35), transparent 60%), radial-gradient(800px 400px at 80% 80%, rgba(245,158,11,0.25), transparent 60%), linear-gradient(180deg, #0A2540, #0B1220)" }}
     >
@@ -492,7 +496,11 @@ function ImmersiveCTA() {
         </p>
         <div className="mt-8 flex flex-wrap gap-3">
           <MagneticButton to="/contact" variant="gold">Get started <ArrowRight className="size-4" /></MagneticButton>
-          <a href="https://wa.me/27000000000" target="_blank" rel="noreferrer"
+          <a href={`mailto:${contact.email}?subject=Project%20enquiry`}
+            className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur hover:bg-white/10">
+            Email us
+          </a>
+          <a href={whatsappHref(contact, "Hi Hadees Trading, I'd like a quote.")} target="_blank" rel="noreferrer"
             className="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/5 px-6 py-3 text-sm font-medium text-white backdrop-blur hover:bg-white/10">
             <MessageCircle className="size-4" /> WhatsApp us
           </a>
@@ -501,6 +509,7 @@ function ImmersiveCTA() {
             Request quote
           </Link>
         </div>
+
       </div>
     </div>
   );

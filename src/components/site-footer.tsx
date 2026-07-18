@@ -1,7 +1,9 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, Mail, MapPin, Phone } from "lucide-react";
+import { formatAddress, mailto, useSiteContact } from "@/lib/site-config";
 
 export function SiteFooter() {
+  const c = useSiteContact();
   return (
     <footer className="relative mt-32 border-t border-border/60 bg-[var(--elevated)]/40">
       <div className="mx-auto max-w-7xl px-6 py-20">
@@ -15,14 +17,14 @@ export function SiteFooter() {
               A South African enterprise partner engineering procurement, compliance and digital infrastructure for organisations that can't afford to guess.
             </p>
             <div className="mt-6 flex flex-col gap-2 text-sm">
-              <a href="mailto:hello@hadees.trading" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"><Mail className="size-4" /> hello@hadees.trading</a>
-              <a href="tel:+27000000000" className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"><Phone className="size-4" /> +27 00 000 0000</a>
-              <span className="inline-flex items-center gap-2 text-muted-foreground"><MapPin className="size-4" /> Johannesburg, South Africa</span>
+              <a href={mailto(c)} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"><Mail className="size-4" /> {c.email}</a>
+              <a href={c.phoneHref} className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground"><Phone className="size-4" /> {c.phone}</a>
+              <span className="inline-flex items-start gap-2 text-muted-foreground"><MapPin className="size-4 mt-0.5" /> {formatAddress(c)}</span>
             </div>
           </div>
 
           <FooterCol title="Company" items={[["About", "/about"], ["Services", "/services"], ["Insights", "/insights"], ["Contact", "/contact"]]} />
-          <FooterCol title="Practice" items={[["Tender management", "/services"], ["Compliance advisory", "/services"], ["Web development", "/services"], ["AI solutions", "/services"]]} />
+          <FooterCol title="Practice" items={[["Tender management", "/services"], ["Compliance advisory", "/services"], ["IVAN OS", "/ivan-os"], ["AI solutions", "/services"]]} />
           <FooterCol title="Legal" items={[["Terms", "/legal/terms"], ["Privacy", "/legal/privacy"], ["POPIA notice", "/legal/popia"], ["B-BBEE", "/about"]]} />
         </div>
 
@@ -30,7 +32,7 @@ export function SiteFooter() {
           <p className="font-mono text-xs uppercase tracking-[0.2em] text-muted-foreground">
             © {new Date().getFullYear()} Hadees Trading (Pty) Ltd. All rights reserved.
           </p>
-          <a href="mailto:hello@hadees.trading" className="group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-accent">
+          <a href={mailto(c)} className="group inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm hover:bg-accent">
             Start a conversation <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </a>
         </div>

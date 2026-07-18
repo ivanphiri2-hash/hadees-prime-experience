@@ -1,10 +1,12 @@
 import { motion } from "motion/react";
 import { MessageCircle } from "lucide-react";
+import { useSiteContact, whatsappHref } from "@/lib/site-config";
 
 export function WhatsAppCTA() {
+  const c = useSiteContact();
   return (
     <motion.a
-      href="https://wa.me/27000000000?text=Hi%20Hadees%20Trading%2C%20I%27d%20like%20to%20discuss%20a%20project."
+      href={whatsappHref(c, "Hi Hadees Trading, I'd like to discuss a project.")}
       target="_blank"
       rel="noreferrer"
       initial={{ opacity: 0, y: 30 }}
