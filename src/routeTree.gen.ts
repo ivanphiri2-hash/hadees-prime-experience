@@ -12,6 +12,10 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as TendersRouteImport } from './routes/tenders'
 import { Route as ServicesRouteImport } from './routes/services'
 import { Route as IvanOsRouteImport } from './routes/ivan-os'
+import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
+import { Route as CRMWorkspaceRouteImport } from './routes/crm-workspace'
+import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
+import { Route as MobileEntryRouteImport } from './routes/mobile-entry'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AboutRouteImport } from './routes/about'
@@ -31,6 +35,26 @@ const ServicesRoute = ServicesRouteImport.update({
 const IvanOsRoute = IvanOsRouteImport.update({
   id: '/ivan-os',
   path: '/ivan-os',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const EnterpriseCrmRoute = EnterpriseCrmRouteImport.update({
+  id: '/enterprise-crm',
+  path: '/enterprise-crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CRMWorkspaceRoute = CRMWorkspaceRouteImport.update({
+  id: '/crm-workspace',
+  path: '/crm-workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthWorkspaceRoute = AuthWorkspaceRouteImport.update({
+  id: '/auth-workspace',
+  path: '/auth-workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MobileEntryRoute = MobileEntryRouteImport.update({
+  id: '/mobile-entry',
+  path: '/mobile-entry',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsRoute = InsightsRouteImport.update({
@@ -63,6 +87,10 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CRMWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
+  '/auth-workspace': typeof AuthWorkspaceRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
@@ -73,6 +101,10 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CRMWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
+  '/auth-workspace': typeof AuthWorkspaceRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
@@ -84,6 +116,10 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CRMWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
+  '/auth-workspace': typeof AuthWorkspaceRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
   '/services': typeof ServicesRoute
@@ -96,6 +132,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/crm-workspace'
+    | '/enterprise-crm'
+    | '/auth-workspace'
+    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
     | '/services'
@@ -106,6 +146,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/crm-workspace'
+    | '/enterprise-crm'
+    | '/auth-workspace'
+    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
     | '/services'
@@ -116,6 +160,10 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/contact'
+    | '/crm-workspace'
+    | '/enterprise-crm'
+    | '/auth-workspace'
+    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
     | '/services'
@@ -127,6 +175,10 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   ContactRoute: typeof ContactRoute
+  EnterpriseCrmRoute: typeof EnterpriseCrmRoute
+  CRMWorkspaceRoute: typeof CRMWorkspaceRoute
+  AuthWorkspaceRoute: typeof AuthWorkspaceRoute
+  MobileEntryRoute: typeof MobileEntryRoute
   InsightsRoute: typeof InsightsRoute
   IvanOsRoute: typeof IvanOsRoute
   ServicesRoute: typeof ServicesRoute
@@ -157,11 +209,32 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IvanOsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/enterprise-crm': {
+      id: '/enterprise-crm'
+      path: '/enterprise-crm'
+      fullPath: '/enterprise-crm'
+      preLoaderRoute: typeof EnterpriseCrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/insights': {
       id: '/insights'
       path: '/insights'
       fullPath: '/insights'
       preLoaderRoute: typeof InsightsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth-workspace': {
+      id: '/auth-workspace'
+      path: '/auth-workspace'
+      fullPath: '/auth-workspace'
+      preLoaderRoute: typeof AuthWorkspaceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mobile-entry': {
+      id: '/mobile-entry'
+      path: '/mobile-entry'
+      fullPath: '/mobile-entry'
+      preLoaderRoute: typeof MobileEntryRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -199,6 +272,10 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   ContactRoute: ContactRoute,
+  EnterpriseCrmRoute: EnterpriseCrmRoute,
+  CRMWorkspaceRoute: CRMWorkspaceRoute,
+  AuthWorkspaceRoute: AuthWorkspaceRoute,
+  MobileEntryRoute: MobileEntryRoute,
   InsightsRoute: InsightsRoute,
   IvanOsRoute: IvanOsRoute,
   ServicesRoute: ServicesRoute,

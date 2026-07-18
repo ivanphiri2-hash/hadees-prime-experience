@@ -9,6 +9,10 @@ const links = [
   { to: "/services", label: "Services" },
   { to: "/tenders", label: "Tenders" },
   { to: "/ivan-os", label: "IVAN OS" },
+  { to: "/enterprise-crm", label: "Enterprise CRM" },
+  { to: "/crm-workspace", label: "CRM Workspace" },
+  { to: "/auth-workspace", label: "Auth Workspace" },
+  { to: "/mobile-entry", label: "Mobile Entry" },
   { to: "/about", label: "About" },
   { to: "/contact", label: "Contact" },
 ] as const;
