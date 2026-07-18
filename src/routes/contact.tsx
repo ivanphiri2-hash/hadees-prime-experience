@@ -21,6 +21,8 @@ export const Route = createFileRoute("/contact")({
 });
 
 function Contact() {
+  const c = useSiteContact();
+
   const [sending, setSending] = useState(false);
   return (
     <main className="pt-32">
