@@ -51,7 +51,7 @@ function Hero() {
         >
           <div className="mx-auto inline-flex items-center gap-2 rounded-full border border-border/60 bg-background/50 backdrop-blur px-3 py-1 text-xs text-muted-foreground">
             <span className="size-1.5 rounded-full bg-[var(--gold)]" />
-            <span className="font-mono uppercase tracking-[0.18em]">Est. 2018 · Johannesburg</span>
+            <span className="font-mono uppercase tracking-[0.18em]">Est. 2025 · Mahikeng</span>
           </div>
 
           <h1 className="mt-6 font-display text-5xl leading-[1.02] text-balance sm:text-7xl md:text-[88px]">

@@ -15,9 +15,9 @@ export type SiteContact = {
 
 export const DEFAULT_CONTACT: SiteContact = {
   email: "info@hadeestrading.co.za",
-  phone: "+27 00 000 0000",
-  phoneHref: "tel:+27000000000",
-  whatsapp: "27000000000",
+  phone: "083 753 5798",
+  phoneHref: "tel:+27837535798",
+  whatsapp: "27837535798",
   addressLine1: "Stand 30065",
   addressLine2: "Motlhabeng",
   city: "Mahikeng",
