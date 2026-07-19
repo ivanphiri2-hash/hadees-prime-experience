@@ -1,8 +1,11 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Loader2, X, Calendar, ArrowRight } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Loader2, X, Calendar, ArrowRight } from "lucide-react";
 import { z } from "zod";
+import { toast } from "sonner";
 import { useSiteContact, mailto } from "@/lib/site-config";
+import { createBooking } from "@/lib/bookings";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(100),
