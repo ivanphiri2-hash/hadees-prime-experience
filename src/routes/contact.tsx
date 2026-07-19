@@ -3,7 +3,8 @@ import { motion } from "motion/react";
 import { useState } from "react";
 import { Mail, Phone, MapPin, ArrowRight, MessageCircle, Send } from "lucide-react";
 import { toast } from "sonner";
-import { formatAddress, mailto, useSiteContact, whatsappHref } from "@/lib/site-config";
+import { mailto, useSiteContact, whatsappHref } from "@/lib/site-config";
+import { GoogleSatelliteMap } from "@/components/google-map";
 
 
 export const Route = createFileRoute("/contact")({
@@ -87,6 +88,8 @@ function Contact() {
             <a href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(c.mapsQuery)}`} target="_blank" rel="noreferrer"
               className="mt-4 inline-flex items-center gap-1 text-sm text-foreground/80 hover:text-foreground">Open in Maps <ArrowRight className="size-3.5" /></a>
           </div>
+
+          <GoogleSatelliteMap query={c.mapsQuery} />
 
           <div className="rounded-2xl border border-border bg-card p-8">
             <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-muted-foreground">Response times</p>

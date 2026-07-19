@@ -1,8 +1,11 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useEffect, useState } from "react";
-import { CheckCircle2, Loader2, X, Calendar, ArrowRight } from "lucide-react";
+import { useNavigate } from "@tanstack/react-router";
+import { Loader2, X, Calendar, ArrowRight } from "lucide-react";
 import { z } from "zod";
+import { toast } from "sonner";
 import { useSiteContact, mailto } from "@/lib/site-config";
+import { createBooking } from "@/lib/bookings";
 
 const schema = z.object({
   name: z.string().trim().min(2, "Please enter your full name").max(100),
@@ -25,18 +28,17 @@ const USE_CASES: { id: FormState["useCase"]; label: string; hint: string }[] = [
   { id: "custom", label: "Something else", hint: "Tell us what you're trying to solve." },
 ];
 
-export function ScheduleDemoModal({ open, onClose, defaultUseCase }: { open: boolean; onClose: () => void; defaultUseCase?: FormState["useCase"] }) {
+export function ScheduleDemoModal({ open, onClose, defaultUseCase, source }: { open: boolean; onClose: () => void; defaultUseCase?: FormState["useCase"]; source?: string }) {
   const contact = useSiteContact();
+  const navigate = useNavigate();
   const [state, setState] = useState<FormState>({
     name: "", email: "", company: "", role: "",
     useCase: defaultUseCase ?? "ops", date: "", notes: "",
   });
   const [errors, setErrors] = useState<Errors>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "success">("idle");
+  const [status, setStatus] = useState<"idle" | "sending">("idle");
 
-  useEffect(() => {
-    if (open) { setStatus("idle"); setErrors({}); }
-  }, [open]);
+  useEffect(() => { if (open) { setStatus("idle"); setErrors({}); } }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -59,8 +61,19 @@ export function ScheduleDemoModal({ open, onClose, defaultUseCase }: { open: boo
     }
     setErrors({});
     setStatus("sending");
-    await new Promise((r) => setTimeout(r, 1100));
-    setStatus("success");
+    try {
+      await createBooking({
+        name: parsed.data.name, email: parsed.data.email, company: parsed.data.company,
+        role: parsed.data.role || undefined, use_case: parsed.data.useCase,
+        preferred_date: parsed.data.date, notes: parsed.data.notes || undefined,
+        source: source ?? "ivan-os",
+      });
+      onClose();
+      navigate({ to: "/schedule-demo/success" });
+    } catch (err: any) {
+      setStatus("idle");
+      toast.error(err?.message ?? "Could not submit — try again.");
+    }
   };
 
   return (
@@ -81,49 +94,45 @@ export function ScheduleDemoModal({ open, onClose, defaultUseCase }: { open: boo
               <X className="size-4" />
             </button>
 
-            {status === "success" ? (
-              <SuccessPanel state={state} email={contact.email} onClose={onClose} />
-            ) : (
-              <form onSubmit={submit} className="p-8 sm:p-10">
-                <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#F59E0B]">
-                  <Calendar className="size-3.5" /> Schedule a live IVAN OS demo
-                </div>
-                <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Book a 30-minute walkthrough</h2>
-                <p className="mt-2 text-sm text-white/60">A HADEES engineer will tailor the session to your stack. We reply within one business day.</p>
+            <form onSubmit={submit} className="p-8 sm:p-10">
+              <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-[0.22em] text-[#F59E0B]">
+                <Calendar className="size-3.5" /> Schedule a live IVAN OS demo
+              </div>
+              <h2 className="mt-3 font-display text-3xl leading-tight sm:text-4xl">Book a 30-minute walkthrough</h2>
+              <p className="mt-2 text-sm text-white/60">A HADEES engineer will tailor the session to your stack. We reply within one business day.</p>
 
-                <div className="mt-6 grid gap-4 sm:grid-cols-2">
-                  <Field label="Full name" v={state.name} onChange={(v) => update("name", v)} error={errors.name} required />
-                  <Field label="Work email" type="email" v={state.email} onChange={(v) => update("email", v)} error={errors.email} required />
-                  <Field label="Company" v={state.company} onChange={(v) => update("company", v)} error={errors.company} required />
-                  <Field label="Role (optional)" v={state.role || ""} onChange={(v) => update("role", v)} />
-                </div>
+              <div className="mt-6 grid gap-4 sm:grid-cols-2">
+                <Field label="Full name" v={state.name} onChange={(v) => update("name", v)} error={errors.name} required />
+                <Field label="Work email" type="email" v={state.email} onChange={(v) => update("email", v)} error={errors.email} required />
+                <Field label="Company" v={state.company} onChange={(v) => update("company", v)} error={errors.company} required />
+                <Field label="Role (optional)" v={state.role || ""} onChange={(v) => update("role", v)} />
+              </div>
 
-                <div className="mt-5">
-                  <label className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">Focus area</label>
-                  <div className="mt-2 grid gap-2 sm:grid-cols-2">
-                    {USE_CASES.map((u) => (
-                      <button key={u.id} type="button" onClick={() => update("useCase", u.id)}
-                        className={`text-left rounded-xl border px-4 py-3 text-sm transition ${state.useCase === u.id ? "border-[#F59E0B] bg-[#F59E0B]/10" : "border-white/10 hover:border-white/25 bg-white/[0.02]"}`}>
-                        <p className="font-medium">{u.label}</p>
-                        <p className="mt-0.5 text-xs text-white/50">{u.hint}</p>
-                      </button>
-                    ))}
-                  </div>
+              <div className="mt-5">
+                <label className="block font-mono text-[10px] uppercase tracking-[0.22em] text-white/50">Focus area</label>
+                <div className="mt-2 grid gap-2 sm:grid-cols-2">
+                  {USE_CASES.map((u) => (
+                    <button key={u.id} type="button" onClick={() => update("useCase", u.id)}
+                      className={`text-left rounded-xl border px-4 py-3 text-sm transition ${state.useCase === u.id ? "border-[#F59E0B] bg-[#F59E0B]/10" : "border-white/10 hover:border-white/25 bg-white/[0.02]"}`}>
+                      <p className="font-medium">{u.label}</p>
+                      <p className="mt-0.5 text-xs text-white/50">{u.hint}</p>
+                    </button>
+                  ))}
                 </div>
+              </div>
 
-                <div className="mt-5 grid gap-4 sm:grid-cols-[220px_1fr]">
-                  <Field label="Preferred date" type="date" v={state.date} onChange={(v) => update("date", v)} error={errors.date} required />
-                  <Field label="Anything specific to prep?" v={state.notes || ""} onChange={(v) => update("notes", v)} />
-                </div>
+              <div className="mt-5 grid gap-4 sm:grid-cols-[220px_1fr]">
+                <Field label="Preferred date" type="date" v={state.date} onChange={(v) => update("date", v)} error={errors.date} required />
+                <Field label="Anything specific to prep?" v={state.notes || ""} onChange={(v) => update("notes", v)} />
+              </div>
 
-                <div className="mt-8 flex items-center justify-between gap-3">
-                  <a href={mailto(contact, "IVAN OS demo enquiry")} className="text-xs text-white/50 hover:text-white">Prefer email? {contact.email}</a>
-                  <button disabled={status === "sending"} className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black disabled:opacity-60">
-                    {status === "sending" ? <><Loader2 className="size-4 animate-spin" /> Booking…</> : <>Confirm booking <ArrowRight className="size-4" /></>}
-                  </button>
-                </div>
-              </form>
-            )}
+              <div className="mt-8 flex items-center justify-between gap-3">
+                <a href={mailto(contact, "IVAN OS demo enquiry")} className="text-xs text-white/50 hover:text-white">Prefer email? {contact.email}</a>
+                <button disabled={status === "sending"} className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black disabled:opacity-60">
+                  {status === "sending" ? <><Loader2 className="size-4 animate-spin" /> Booking…</> : <>Confirm booking <ArrowRight className="size-4" /></>}
+                </button>
+              </div>
+            </form>
           </motion.div>
         </motion.div>
       )}
@@ -145,27 +154,4 @@ function Field({ label, v, onChange, error, type = "text", required }: {
       {error && <p className="mt-1 text-xs text-red-400">{error}</p>}
     </div>
   );
-}
-
-function SuccessPanel({ state, email, onClose }: { state: FormState; email: string; onClose: () => void }) {
-  return (
-    <div className="relative p-10 sm:p-14 text-center">
-      <motion.div initial={{ scale: 0.6, opacity: 0 }} animate={{ scale: 1, opacity: 1 }} transition={{ type: "spring", stiffness: 260, damping: 18 }}
-        className="mx-auto grid size-16 place-items-center rounded-full bg-emerald-500/15 text-emerald-300">
-        <CheckCircle2 className="size-8" />
-      </motion.div>
-      <h3 className="mt-6 font-display text-3xl">Demo confirmed</h3>
-      <p className="mt-3 text-sm text-white/60">Thanks {state.name.split(" ")[0] || "there"} — we've logged your session for <span className="text-white">{state.date}</span>. A calendar invite lands in <span className="text-white">{state.email}</span> shortly.</p>
-      <div className="mx-auto mt-8 grid max-w-md gap-2 rounded-2xl border border-white/10 bg-white/[0.03] p-5 text-left text-sm">
-        <Row k="Focus" v={USE_CASES.find((u) => u.id === state.useCase)?.label ?? ""} />
-        <Row k="Company" v={state.company} />
-        <Row k="Confirmations" v={email} />
-      </div>
-      <button onClick={onClose} className="mt-8 inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-2.5 text-sm text-white hover:bg-white/10">Close</button>
-    </div>
-  );
-}
-
-function Row({ k, v }: { k: string; v: string }) {
-  return <div className="flex justify-between gap-4 border-b border-white/5 pb-1.5 last:border-0"><span className="text-white/50">{k}</span><span className="text-white">{v}</span></div>;
 }

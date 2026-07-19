@@ -8,13 +8,36 @@ import { ScheduleDemoModal } from "@/components/schedule-demo-modal";
 export const Route = createFileRoute("/ivan-os")({
   head: () => ({
     meta: [
-      { title: "IVAN OS — AI-native business operating system by Hadees Trading" },
-      { name: "description", content: "IVAN OS unifies operations, sales, finance and compliance into one AI-native workspace. Try the interactive demo and book a live walkthrough." },
+      { title: "IVAN OS — AI-native business operating system by HADEES Trading" },
+      { name: "description", content: "IVAN OS unifies operations, sales, finance and compliance into one AI-native workspace built for South African enterprises. Try the interactive demo and book a live walkthrough." },
       { property: "og:title", content: "IVAN OS — AI Business Operating System" },
       { property: "og:description", content: "Autonomous agents, live signals and end-to-end automation for South African enterprises." },
-      { property: "og:type", content: "website" },
+      { property: "og:type", content: "product" },
+      { property: "og:url", content: "/ivan-os" },
+      { name: "twitter:card", content: "summary_large_image" },
+      { name: "twitter:title", content: "IVAN OS — AI Business Operating System" },
+      { name: "twitter:description", content: "Autonomous agents, live signals and end-to-end automation for South African enterprises." },
+      { name: "keywords", content: "AI business operating system, IVAN OS, HADEES Trading, workflow automation South Africa, enterprise AI Mahikeng" },
     ],
     links: [{ rel: "canonical", href: "/ivan-os" }],
+    scripts: [
+      { type: "application/ld+json", children: JSON.stringify({
+        "@context": "https://schema.org", "@type": "SoftwareApplication",
+        name: "IVAN OS", applicationCategory: "BusinessApplication", operatingSystem: "Web",
+        description: "AI-native business operating system unifying operations, sales, finance and compliance.",
+        offers: { "@type": "Offer", priceCurrency: "ZAR", price: "0", availability: "https://schema.org/PreOrder" },
+        publisher: { "@type": "Organization", name: "HADEES Trading (Pty) Ltd" },
+      })},
+      { type: "application/ld+json", children: JSON.stringify({
+        "@context": "https://schema.org", "@type": "FAQPage",
+        mainEntity: [
+          { "@type": "Question", name: "What is IVAN OS?", acceptedAnswer: { "@type": "Answer", text: "IVAN OS is HADEES Trading's AI-native business operating system that runs operations, sales, finance and compliance side-by-side with autonomous agents and human checkpoints." } },
+          { "@type": "Question", name: "Which systems does IVAN OS integrate with?", acceptedAnswer: { "@type": "Answer", text: "Pre-built adapters exist for Xero, Sage, HubSpot, Microsoft 365 and South African government portals; custom connectors can be added per client." } },
+          { "@type": "Question", name: "Is IVAN OS POPIA and ISO 27001 aligned?", acceptedAnswer: { "@type": "Answer", text: "Yes. Every workflow captures POPIA, ISO 27001 and BBBEE evidence as work moves through the system, ready for audit." } },
+          { "@type": "Question", name: "How do I try IVAN OS?", acceptedAnswer: { "@type": "Answer", text: "Use the interactive demo on this page or book a 30-minute live walkthrough where a HADEES engineer maps IVAN OS to a real workflow from your business." } },
+        ],
+      })},
+    ],
   }),
   component: IvanOsPage,
 });
