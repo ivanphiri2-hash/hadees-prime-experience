@@ -1,12 +1,12 @@
 import { Link } from "@tanstack/react-router";
-import { ArrowRight, DeviceMobile, MessageCircle, ShieldCheck } from "lucide-react";
+import { ArrowRight, Smartphone, MessageCircle, ShieldCheck } from "lucide-react";
 
 export function MobileEntry() {
   return (
     <main className="bg-[#060912] text-white">
       <section className="mx-auto max-w-5xl px-6 py-24 text-center">
         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/5 px-4 py-1 text-xs uppercase tracking-[0.24em] text-cyan-200">
-          <DeviceMobile className="size-4" /> Mobile entrypoint
+          <Smartphone className="size-4" /> Mobile entrypoint
         </div>
         <h1 className="mt-8 scroll-m-20 text-4xl font-semibold tracking-tight sm:text-5xl">A mobile-ready app entry for every customer and field team.</h1>
         <p className="mx-auto mt-4 max-w-2xl text-sm leading-7 text-white/70">
