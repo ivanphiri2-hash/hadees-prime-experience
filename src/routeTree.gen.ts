@@ -18,10 +18,12 @@ import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
 import { Route as CrmWorkspaceRouteImport } from './routes/crm-workspace'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScheduleDemoSuccessRouteImport } from './routes/schedule-demo.success'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
+import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
 const TendersRoute = TendersRouteImport.update({
   id: '/tenders',
@@ -68,6 +70,11 @@ const AuthWorkspaceRoute = AuthWorkspaceRouteImport.update({
   path: '/auth-workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
@@ -88,10 +95,16 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
   path: '/admin/settings',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminBookingsRoute = AdminBookingsRouteImport.update({
+  id: '/admin/bookings',
+  path: '/admin/bookings',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
@@ -101,12 +114,14 @@ export interface FileRoutesByFullPath {
   '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
@@ -116,6 +131,7 @@ export interface FileRoutesByTo {
   '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
@@ -123,6 +139,7 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
@@ -132,6 +149,7 @@ export interface FileRoutesById {
   '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
+  '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
@@ -140,6 +158,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth'
     | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
@@ -149,12 +168,14 @@ export interface FileRouteTypes {
     | '/mobile-entry'
     | '/services'
     | '/tenders'
+    | '/admin/bookings'
     | '/admin/settings'
     | '/schedule-demo/success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/auth'
     | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
@@ -164,12 +185,14 @@ export interface FileRouteTypes {
     | '/mobile-entry'
     | '/services'
     | '/tenders'
+    | '/admin/bookings'
     | '/admin/settings'
     | '/schedule-demo/success'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/auth'
     | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
@@ -179,6 +202,7 @@ export interface FileRouteTypes {
     | '/mobile-entry'
     | '/services'
     | '/tenders'
+    | '/admin/bookings'
     | '/admin/settings'
     | '/schedule-demo/success'
   fileRoutesById: FileRoutesById
@@ -186,6 +210,7 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  AuthRoute: typeof AuthRoute
   AuthWorkspaceRoute: typeof AuthWorkspaceRoute
   ContactRoute: typeof ContactRoute
   CrmWorkspaceRoute: typeof CrmWorkspaceRoute
@@ -195,6 +220,7 @@ export interface RootRouteChildren {
   MobileEntryRoute: typeof MobileEntryRoute
   ServicesRoute: typeof ServicesRoute
   TendersRoute: typeof TendersRoute
+  AdminBookingsRoute: typeof AdminBookingsRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
   ScheduleDemoSuccessRoute: typeof ScheduleDemoSuccessRoute
 }
@@ -264,6 +290,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthWorkspaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/about': {
       id: '/about'
       path: '/about'
@@ -292,12 +325,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AdminSettingsRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/bookings': {
+      id: '/admin/bookings'
+      path: '/admin/bookings'
+      fullPath: '/admin/bookings'
+      preLoaderRoute: typeof AdminBookingsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  AuthRoute: AuthRoute,
   AuthWorkspaceRoute: AuthWorkspaceRoute,
   ContactRoute: ContactRoute,
   CrmWorkspaceRoute: CrmWorkspaceRoute,
@@ -307,6 +348,7 @@ const rootRouteChildren: RootRouteChildren = {
   MobileEntryRoute: MobileEntryRoute,
   ServicesRoute: ServicesRoute,
   TendersRoute: TendersRoute,
+  AdminBookingsRoute: AdminBookingsRoute,
   AdminSettingsRoute: AdminSettingsRoute,
   ScheduleDemoSuccessRoute: ScheduleDemoSuccessRoute,
 }
