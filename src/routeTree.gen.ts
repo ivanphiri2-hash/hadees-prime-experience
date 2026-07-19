@@ -11,13 +11,13 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as TendersRouteImport } from './routes/tenders'
 import { Route as ServicesRouteImport } from './routes/services'
-import { Route as IvanOsRouteImport } from './routes/ivan-os'
-import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
-import { Route as CRMWorkspaceRouteImport } from './routes/crm-workspace'
-import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
 import { Route as MobileEntryRouteImport } from './routes/mobile-entry'
+import { Route as IvanOsRouteImport } from './routes/ivan-os'
 import { Route as InsightsRouteImport } from './routes/insights'
+import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
+import { Route as CrmWorkspaceRouteImport } from './routes/crm-workspace'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
@@ -32,29 +32,14 @@ const ServicesRoute = ServicesRouteImport.update({
   path: '/services',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IvanOsRoute = IvanOsRouteImport.update({
-  id: '/ivan-os',
-  path: '/ivan-os',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const EnterpriseCrmRoute = EnterpriseCrmRouteImport.update({
-  id: '/enterprise-crm',
-  path: '/enterprise-crm',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CRMWorkspaceRoute = CRMWorkspaceRouteImport.update({
-  id: '/crm-workspace',
-  path: '/crm-workspace',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const AuthWorkspaceRoute = AuthWorkspaceRouteImport.update({
-  id: '/auth-workspace',
-  path: '/auth-workspace',
-  getParentRoute: () => rootRouteImport,
-} as any)
 const MobileEntryRoute = MobileEntryRouteImport.update({
   id: '/mobile-entry',
   path: '/mobile-entry',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IvanOsRoute = IvanOsRouteImport.update({
+  id: '/ivan-os',
+  path: '/ivan-os',
   getParentRoute: () => rootRouteImport,
 } as any)
 const InsightsRoute = InsightsRouteImport.update({
@@ -62,9 +47,24 @@ const InsightsRoute = InsightsRouteImport.update({
   path: '/insights',
   getParentRoute: () => rootRouteImport,
 } as any)
+const EnterpriseCrmRoute = EnterpriseCrmRouteImport.update({
+  id: '/enterprise-crm',
+  path: '/enterprise-crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CrmWorkspaceRoute = CrmWorkspaceRouteImport.update({
+  id: '/crm-workspace',
+  path: '/crm-workspace',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthWorkspaceRoute = AuthWorkspaceRouteImport.update({
+  id: '/auth-workspace',
+  path: '/auth-workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -86,13 +86,13 @@ const AdminSettingsRoute = AdminSettingsRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/crm-workspace': typeof CRMWorkspaceRoute
-  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
-  '/mobile-entry': typeof MobileEntryRoute
+  '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CrmWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -100,13 +100,13 @@ export interface FileRoutesByFullPath {
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/crm-workspace': typeof CRMWorkspaceRoute
-  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
-  '/mobile-entry': typeof MobileEntryRoute
+  '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CrmWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -115,13 +115,13 @@ export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
-  '/contact': typeof ContactRoute
-  '/crm-workspace': typeof CRMWorkspaceRoute
-  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
-  '/mobile-entry': typeof MobileEntryRoute
+  '/contact': typeof ContactRoute
+  '/crm-workspace': typeof CrmWorkspaceRoute
+  '/enterprise-crm': typeof EnterpriseCrmRoute
   '/insights': typeof InsightsRoute
   '/ivan-os': typeof IvanOsRoute
+  '/mobile-entry': typeof MobileEntryRoute
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
@@ -131,13 +131,13 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
-    | '/auth-workspace'
-    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
+    | '/mobile-entry'
     | '/services'
     | '/tenders'
     | '/admin/settings'
@@ -145,13 +145,13 @@ export interface FileRouteTypes {
   to:
     | '/'
     | '/about'
+    | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
-    | '/auth-workspace'
-    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
+    | '/mobile-entry'
     | '/services'
     | '/tenders'
     | '/admin/settings'
@@ -159,13 +159,13 @@ export interface FileRouteTypes {
     | '__root__'
     | '/'
     | '/about'
+    | '/auth-workspace'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
-    | '/auth-workspace'
-    | '/mobile-entry'
     | '/insights'
     | '/ivan-os'
+    | '/mobile-entry'
     | '/services'
     | '/tenders'
     | '/admin/settings'
@@ -174,13 +174,13 @@ export interface FileRouteTypes {
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
-  ContactRoute: typeof ContactRoute
-  EnterpriseCrmRoute: typeof EnterpriseCrmRoute
-  CRMWorkspaceRoute: typeof CRMWorkspaceRoute
   AuthWorkspaceRoute: typeof AuthWorkspaceRoute
-  MobileEntryRoute: typeof MobileEntryRoute
+  ContactRoute: typeof ContactRoute
+  CrmWorkspaceRoute: typeof CrmWorkspaceRoute
+  EnterpriseCrmRoute: typeof EnterpriseCrmRoute
   InsightsRoute: typeof InsightsRoute
   IvanOsRoute: typeof IvanOsRoute
+  MobileEntryRoute: typeof MobileEntryRoute
   ServicesRoute: typeof ServicesRoute
   TendersRoute: typeof TendersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
@@ -202,18 +202,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ServicesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/mobile-entry': {
+      id: '/mobile-entry'
+      path: '/mobile-entry'
+      fullPath: '/mobile-entry'
+      preLoaderRoute: typeof MobileEntryRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ivan-os': {
       id: '/ivan-os'
       path: '/ivan-os'
       fullPath: '/ivan-os'
       preLoaderRoute: typeof IvanOsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/enterprise-crm': {
-      id: '/enterprise-crm'
-      path: '/enterprise-crm'
-      fullPath: '/enterprise-crm'
-      preLoaderRoute: typeof EnterpriseCrmRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/insights': {
@@ -223,18 +223,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof InsightsRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/auth-workspace': {
-      id: '/auth-workspace'
-      path: '/auth-workspace'
-      fullPath: '/auth-workspace'
-      preLoaderRoute: typeof AuthWorkspaceRouteImport
+    '/enterprise-crm': {
+      id: '/enterprise-crm'
+      path: '/enterprise-crm'
+      fullPath: '/enterprise-crm'
+      preLoaderRoute: typeof EnterpriseCrmRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/mobile-entry': {
-      id: '/mobile-entry'
-      path: '/mobile-entry'
-      fullPath: '/mobile-entry'
-      preLoaderRoute: typeof MobileEntryRouteImport
+    '/crm-workspace': {
+      id: '/crm-workspace'
+      path: '/crm-workspace'
+      fullPath: '/crm-workspace'
+      preLoaderRoute: typeof CrmWorkspaceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/contact': {
@@ -242,6 +242,13 @@ declare module '@tanstack/react-router' {
       path: '/contact'
       fullPath: '/contact'
       preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/auth-workspace': {
+      id: '/auth-workspace'
+      path: '/auth-workspace'
+      fullPath: '/auth-workspace'
+      preLoaderRoute: typeof AuthWorkspaceRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -271,13 +278,13 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
-  ContactRoute: ContactRoute,
-  EnterpriseCrmRoute: EnterpriseCrmRoute,
-  CRMWorkspaceRoute: CRMWorkspaceRoute,
   AuthWorkspaceRoute: AuthWorkspaceRoute,
-  MobileEntryRoute: MobileEntryRoute,
+  ContactRoute: ContactRoute,
+  CrmWorkspaceRoute: CrmWorkspaceRoute,
+  EnterpriseCrmRoute: EnterpriseCrmRoute,
   InsightsRoute: InsightsRoute,
   IvanOsRoute: IvanOsRoute,
+  MobileEntryRoute: MobileEntryRoute,
   ServicesRoute: ServicesRoute,
   TendersRoute: TendersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
@@ -285,3 +292,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
