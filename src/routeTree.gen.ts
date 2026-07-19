@@ -20,6 +20,7 @@ import { Route as ContactRouteImport } from './routes/contact'
 import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ScheduleDemoSuccessRouteImport } from './routes/schedule-demo.success'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 
 const TendersRoute = TendersRouteImport.update({
@@ -77,6 +78,11 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ScheduleDemoSuccessRoute = ScheduleDemoSuccessRouteImport.update({
+  id: '/schedule-demo/success',
+  path: '/schedule-demo/success',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/admin/settings',
   path: '/admin/settings',
@@ -96,6 +102,7 @@ export interface FileRoutesByFullPath {
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -110,6 +117,7 @@ export interface FileRoutesByTo {
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -125,6 +133,7 @@ export interface FileRoutesById {
   '/services': typeof ServicesRoute
   '/tenders': typeof TendersRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -141,6 +150,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tenders'
     | '/admin/settings'
+    | '/schedule-demo/success'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -155,6 +165,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tenders'
     | '/admin/settings'
+    | '/schedule-demo/success'
   id:
     | '__root__'
     | '/'
@@ -169,6 +180,7 @@ export interface FileRouteTypes {
     | '/services'
     | '/tenders'
     | '/admin/settings'
+    | '/schedule-demo/success'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -184,6 +196,7 @@ export interface RootRouteChildren {
   ServicesRoute: typeof ServicesRoute
   TendersRoute: typeof TendersRoute
   AdminSettingsRoute: typeof AdminSettingsRoute
+  ScheduleDemoSuccessRoute: typeof ScheduleDemoSuccessRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -265,6 +278,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/schedule-demo/success': {
+      id: '/schedule-demo/success'
+      path: '/schedule-demo/success'
+      fullPath: '/schedule-demo/success'
+      preLoaderRoute: typeof ScheduleDemoSuccessRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/admin/settings'
@@ -288,6 +308,7 @@ const rootRouteChildren: RootRouteChildren = {
   ServicesRoute: ServicesRoute,
   TendersRoute: TendersRoute,
   AdminSettingsRoute: AdminSettingsRoute,
+  ScheduleDemoSuccessRoute: ScheduleDemoSuccessRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
