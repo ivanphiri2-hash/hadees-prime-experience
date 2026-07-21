@@ -281,7 +281,7 @@ function TenderRow({ t, i, onOpen, onDownload }: { t: Tender; i: number; onOpen:
   );
 }
 
-function TenderDrawer({ t, onClose, onDownload }: { t: Tender; onClose: () => void; onDownload: (n: string) => void }) {
+function TenderDrawer({ t, onClose, onDownload, onRespond }: { t: Tender; onClose: () => void; onDownload: (n: string) => void; onRespond: () => void }) {
   return (
     <motion.div
       initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
@@ -348,11 +348,19 @@ function TenderDrawer({ t, onClose, onDownload }: { t: Tender; onClose: () => vo
           </div>
 
           <div className="mt-10 rounded-2xl border border-border bg-card p-5">
-            <p className="font-display text-lg">Want us to draft the full response?</p>
-            <p className="mt-1 text-sm text-muted-foreground">We'll produce a compliant submission with pricing strategy and a signed evidence pack.</p>
-            <Link to="/contact" className="mt-4 inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background">
-              Request bid support <ArrowRight className="size-4" />
-            </Link>
+            <p className="font-display text-lg">Respond to this tender</p>
+            <p className="mt-1 text-sm text-muted-foreground">We'll produce a compliant submission with pricing strategy and a signed evidence pack — book a 30-minute bid review and we'll take it from here.</p>
+            <div className="mt-4 flex flex-wrap gap-2">
+              <button
+                onClick={onRespond}
+                className="inline-flex items-center gap-2 rounded-full bg-foreground px-4 py-2 text-sm font-medium text-background hover:opacity-90"
+              >
+                <Send className="size-4" /> Respond to tender
+              </button>
+              <Link to="/contact" className="inline-flex items-center gap-2 rounded-full border border-border px-4 py-2 text-sm font-medium hover:bg-accent">
+                Or send an email <ArrowRight className="size-4" />
+              </Link>
+            </div>
           </div>
         </div>
       </motion.aside>
