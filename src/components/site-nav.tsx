@@ -8,6 +8,7 @@ const links = [
   { to: "/", label: "Home" },
   { to: "/services", label: "Services" },
   { to: "/tenders", label: "Tenders" },
+  { to: "/compliance", label: "Compliance" },
   { to: "/ivan-os", label: "IVAN OS" },
   { to: "/enterprise-crm", label: "Enterprise CRM" },
   { to: "/crm-workspace", label: "CRM Workspace" },
