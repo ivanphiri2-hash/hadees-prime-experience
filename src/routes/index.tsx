@@ -1,5 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { motion } from "motion/react";
+import { useState } from "react";
 import {
   ArrowUpRight, ArrowRight, ShieldCheck, FileCheck2, Sparkles, Globe2, Cpu, Building2,
   CheckCircle2, Star, Quote,
@@ -7,6 +8,7 @@ import {
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { BusinessSolutions } from "@/components/business-solutions";
 import { IvanOS } from "@/components/ivan-os";
+import { ScheduleDemoModal } from "@/components/schedule-demo-modal";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -378,6 +380,7 @@ function FAQ() {
 /* ---------------- CTA ---------------- */
 
 function CTA() {
+  const [open, setOpen] = useState(false);
   return (
     <section className="px-6 py-28">
       <div className="relative mx-auto max-w-6xl overflow-hidden rounded-3xl border border-border p-10 sm:p-16"
@@ -391,11 +394,17 @@ function CTA() {
           </h2>
           <p className="mt-5 max-w-xl text-white/70">Book a 30-minute working session. If we can't help, we'll tell you within the call and point you to someone who can.</p>
           <div className="mt-8 flex flex-wrap gap-3">
-            <Link to="/contact" className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90">Book a discovery call <ArrowRight className="size-4" /></Link>
+            <button
+              onClick={() => setOpen(true)}
+              className="inline-flex items-center gap-2 rounded-full bg-white px-6 py-3 text-sm font-medium text-black hover:bg-white/90"
+            >
+              Schedule a discovery call <ArrowRight className="size-4" />
+            </button>
             <Link to="/services" className="inline-flex items-center gap-2 rounded-full border border-white/20 px-6 py-3 text-sm font-medium text-white hover:bg-white/10">See our services</Link>
           </div>
         </div>
       </div>
+      <ScheduleDemoModal open={open} onClose={() => setOpen(false)} defaultUseCase="ops" source="home-final-cta" />
     </section>
   );
 }
