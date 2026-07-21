@@ -17,11 +17,13 @@ import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
 import { Route as CrmWorkspaceRouteImport } from './routes/crm-workspace'
 import { Route as ContactRouteImport } from './routes/contact'
+import { Route as ComplianceRouteImport } from './routes/compliance'
 import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ScheduleDemoSuccessRouteImport } from './routes/schedule-demo.success'
+import { Route as ComplianceSlugRouteImport } from './routes/compliance.$slug'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
 
@@ -65,6 +67,11 @@ const ContactRoute = ContactRouteImport.update({
   path: '/contact',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComplianceRoute = ComplianceRouteImport.update({
+  id: '/compliance',
+  path: '/compliance',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AuthWorkspaceRoute = AuthWorkspaceRouteImport.update({
   id: '/auth-workspace',
   path: '/auth-workspace',
@@ -90,6 +97,11 @@ const ScheduleDemoSuccessRoute = ScheduleDemoSuccessRouteImport.update({
   path: '/schedule-demo/success',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ComplianceSlugRoute = ComplianceSlugRouteImport.update({
+  id: '/$slug',
+  path: '/$slug',
+  getParentRoute: () => ComplianceRoute,
+} as any)
 const AdminSettingsRoute = AdminSettingsRouteImport.update({
   id: '/admin/settings',
   path: '/admin/settings',
@@ -106,6 +118,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
+  '/compliance': typeof ComplianceRouteWithChildren
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
   '/enterprise-crm': typeof EnterpriseCrmRoute
@@ -116,6 +129,7 @@ export interface FileRoutesByFullPath {
   '/tenders': typeof TendersRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/compliance/$slug': typeof ComplianceSlugRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRoutesByTo {
@@ -123,6 +137,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
+  '/compliance': typeof ComplianceRouteWithChildren
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
   '/enterprise-crm': typeof EnterpriseCrmRoute
@@ -133,6 +148,7 @@ export interface FileRoutesByTo {
   '/tenders': typeof TendersRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/compliance/$slug': typeof ComplianceSlugRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRoutesById {
@@ -141,6 +157,7 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/auth': typeof AuthRoute
   '/auth-workspace': typeof AuthWorkspaceRoute
+  '/compliance': typeof ComplianceRouteWithChildren
   '/contact': typeof ContactRoute
   '/crm-workspace': typeof CrmWorkspaceRoute
   '/enterprise-crm': typeof EnterpriseCrmRoute
@@ -151,6 +168,7 @@ export interface FileRoutesById {
   '/tenders': typeof TendersRoute
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
+  '/compliance/$slug': typeof ComplianceSlugRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
 }
 export interface FileRouteTypes {
@@ -160,6 +178,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/auth-workspace'
+    | '/compliance'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
@@ -170,6 +189,7 @@ export interface FileRouteTypes {
     | '/tenders'
     | '/admin/bookings'
     | '/admin/settings'
+    | '/compliance/$slug'
     | '/schedule-demo/success'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -177,6 +197,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/auth-workspace'
+    | '/compliance'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
@@ -187,6 +208,7 @@ export interface FileRouteTypes {
     | '/tenders'
     | '/admin/bookings'
     | '/admin/settings'
+    | '/compliance/$slug'
     | '/schedule-demo/success'
   id:
     | '__root__'
@@ -194,6 +216,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/auth'
     | '/auth-workspace'
+    | '/compliance'
     | '/contact'
     | '/crm-workspace'
     | '/enterprise-crm'
@@ -204,6 +227,7 @@ export interface FileRouteTypes {
     | '/tenders'
     | '/admin/bookings'
     | '/admin/settings'
+    | '/compliance/$slug'
     | '/schedule-demo/success'
   fileRoutesById: FileRoutesById
 }
@@ -212,6 +236,7 @@ export interface RootRouteChildren {
   AboutRoute: typeof AboutRoute
   AuthRoute: typeof AuthRoute
   AuthWorkspaceRoute: typeof AuthWorkspaceRoute
+  ComplianceRoute: typeof ComplianceRouteWithChildren
   ContactRoute: typeof ContactRoute
   CrmWorkspaceRoute: typeof CrmWorkspaceRoute
   EnterpriseCrmRoute: typeof EnterpriseCrmRoute
@@ -283,6 +308,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ContactRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compliance': {
+      id: '/compliance'
+      path: '/compliance'
+      fullPath: '/compliance'
+      preLoaderRoute: typeof ComplianceRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/auth-workspace': {
       id: '/auth-workspace'
       path: '/auth-workspace'
@@ -318,6 +350,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ScheduleDemoSuccessRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/compliance/$slug': {
+      id: '/compliance/$slug'
+      path: '/$slug'
+      fullPath: '/compliance/$slug'
+      preLoaderRoute: typeof ComplianceSlugRouteImport
+      parentRoute: typeof ComplianceRoute
+    }
     '/admin/settings': {
       id: '/admin/settings'
       path: '/admin/settings'
@@ -335,11 +374,24 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ComplianceRouteChildren {
+  ComplianceSlugRoute: typeof ComplianceSlugRoute
+}
+
+const ComplianceRouteChildren: ComplianceRouteChildren = {
+  ComplianceSlugRoute: ComplianceSlugRoute,
+}
+
+const ComplianceRouteWithChildren = ComplianceRoute._addFileChildren(
+  ComplianceRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   AuthRoute: AuthRoute,
   AuthWorkspaceRoute: AuthWorkspaceRoute,
+  ComplianceRoute: ComplianceRouteWithChildren,
   ContactRoute: ContactRoute,
   CrmWorkspaceRoute: CrmWorkspaceRoute,
   EnterpriseCrmRoute: EnterpriseCrmRoute,

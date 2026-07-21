@@ -76,7 +76,7 @@ export const Route = createFileRoute("/compliance/$slug")({
 });
 
 function ComplianceDetail() {
-  const { item } = Route.useLoaderData();
+  const { item } = Route.useLoaderData() as { item: ComplianceItem };
   const [scheduleOpen, setScheduleOpen] = useState(false);
 
   const download = (assetName: string) => {
