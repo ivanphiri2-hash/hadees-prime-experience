@@ -3,12 +3,13 @@ import { motion, AnimatePresence } from "motion/react";
 import { useMemo, useState } from "react";
 import {
   Search, SlidersHorizontal, Download, FileText, MapPin, Building2,
-  Clock, ArrowRight, X, CheckCircle2, ArrowUpRight,
+  Clock, ArrowRight, X, CheckCircle2, ArrowUpRight, Send,
 } from "lucide-react";
 import {
   TENDERS, CATEGORIES, PROVINCES, STATUSES, daysUntil, buildTenderDoc,
   type Tender, type TenderCategory, type TenderStatus,
 } from "@/lib/tenders";
+import { ScheduleDemoModal } from "@/components/schedule-demo-modal";
 
 export const Route = createFileRoute("/tenders")({
   head: () => ({
@@ -33,6 +34,7 @@ function TendersPage() {
   const [status, setStatus] = useState<TenderStatus | "All">("All");
   const [sort, setSort] = useState<"closing" | "published" | "budget">("closing");
   const [selected, setSelected] = useState<Tender | null>(null);
+  const [respondTo, setRespondTo] = useState<Tender | null>(null);
 
   const results = useMemo(() => {
     const s = q.trim().toLowerCase();
@@ -204,9 +206,21 @@ function TendersPage() {
       {/* DRAWER */}
       <AnimatePresence>
         {selected && (
-          <TenderDrawer t={selected} onClose={() => setSelected(null)} onDownload={(name) => download(selected, name)} />
+          <TenderDrawer
+            t={selected}
+            onClose={() => setSelected(null)}
+            onDownload={(name) => download(selected, name)}
+            onRespond={() => { const t = selected; setSelected(null); setRespondTo(t); }}
+          />
         )}
       </AnimatePresence>
+
+      <ScheduleDemoModal
+        open={!!respondTo}
+        onClose={() => setRespondTo(null)}
+        defaultUseCase="compliance"
+        source={respondTo ? `tender:${respondTo.reference}` : "tenders"}
+      />
     </main>
   );
 }
