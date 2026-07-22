@@ -16,13 +16,18 @@ import { Route as IvanOsRouteImport } from './routes/ivan-os'
 import { Route as InsightsRouteImport } from './routes/insights'
 import { Route as EnterpriseCrmRouteImport } from './routes/enterprise-crm'
 import { Route as CrmWorkspaceRouteImport } from './routes/crm-workspace'
+import { Route as CrmRouteImport } from './routes/crm'
 import { Route as ContactRouteImport } from './routes/contact'
 import { Route as ComplianceRouteImport } from './routes/compliance'
 import { Route as AuthWorkspaceRouteImport } from './routes/auth-workspace'
 import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as CrmIndexRouteImport } from './routes/crm.index'
 import { Route as ScheduleDemoSuccessRouteImport } from './routes/schedule-demo.success'
+import { Route as CrmLeadsRouteImport } from './routes/crm.leads'
+import { Route as CrmContactsRouteImport } from './routes/crm.contacts'
+import { Route as CrmCompaniesRouteImport } from './routes/crm.companies'
 import { Route as ComplianceSlugRouteImport } from './routes/compliance.$slug'
 import { Route as AdminSettingsRouteImport } from './routes/admin.settings'
 import { Route as AdminBookingsRouteImport } from './routes/admin.bookings'
@@ -62,6 +67,11 @@ const CrmWorkspaceRoute = CrmWorkspaceRouteImport.update({
   path: '/crm-workspace',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrmRoute = CrmRouteImport.update({
+  id: '/crm',
+  path: '/crm',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ContactRoute = ContactRouteImport.update({
   id: '/contact',
   path: '/contact',
@@ -92,10 +102,30 @@ const IndexRoute = IndexRouteImport.update({
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const CrmIndexRoute = CrmIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => CrmRoute,
+} as any)
 const ScheduleDemoSuccessRoute = ScheduleDemoSuccessRouteImport.update({
   id: '/schedule-demo/success',
   path: '/schedule-demo/success',
   getParentRoute: () => rootRouteImport,
+} as any)
+const CrmLeadsRoute = CrmLeadsRouteImport.update({
+  id: '/leads',
+  path: '/leads',
+  getParentRoute: () => CrmRoute,
+} as any)
+const CrmContactsRoute = CrmContactsRouteImport.update({
+  id: '/contacts',
+  path: '/contacts',
+  getParentRoute: () => CrmRoute,
+} as any)
+const CrmCompaniesRoute = CrmCompaniesRouteImport.update({
+  id: '/companies',
+  path: '/companies',
+  getParentRoute: () => CrmRoute,
 } as any)
 const ComplianceSlugRoute = ComplianceSlugRouteImport.update({
   id: '/$slug',
@@ -120,6 +150,7 @@ export interface FileRoutesByFullPath {
   '/auth-workspace': typeof AuthWorkspaceRoute
   '/compliance': typeof ComplianceRouteWithChildren
   '/contact': typeof ContactRoute
+  '/crm': typeof CrmRouteWithChildren
   '/crm-workspace': typeof CrmWorkspaceRoute
   '/enterprise-crm': typeof EnterpriseCrmRoute
   '/insights': typeof InsightsRoute
@@ -130,7 +161,11 @@ export interface FileRoutesByFullPath {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/compliance/$slug': typeof ComplianceSlugRoute
+  '/crm/companies': typeof CrmCompaniesRoute
+  '/crm/contacts': typeof CrmContactsRoute
+  '/crm/leads': typeof CrmLeadsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
+  '/crm/': typeof CrmIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -149,7 +184,11 @@ export interface FileRoutesByTo {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/compliance/$slug': typeof ComplianceSlugRoute
+  '/crm/companies': typeof CrmCompaniesRoute
+  '/crm/contacts': typeof CrmContactsRoute
+  '/crm/leads': typeof CrmLeadsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
+  '/crm': typeof CrmIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -159,6 +198,7 @@ export interface FileRoutesById {
   '/auth-workspace': typeof AuthWorkspaceRoute
   '/compliance': typeof ComplianceRouteWithChildren
   '/contact': typeof ContactRoute
+  '/crm': typeof CrmRouteWithChildren
   '/crm-workspace': typeof CrmWorkspaceRoute
   '/enterprise-crm': typeof EnterpriseCrmRoute
   '/insights': typeof InsightsRoute
@@ -169,7 +209,11 @@ export interface FileRoutesById {
   '/admin/bookings': typeof AdminBookingsRoute
   '/admin/settings': typeof AdminSettingsRoute
   '/compliance/$slug': typeof ComplianceSlugRoute
+  '/crm/companies': typeof CrmCompaniesRoute
+  '/crm/contacts': typeof CrmContactsRoute
+  '/crm/leads': typeof CrmLeadsRoute
   '/schedule-demo/success': typeof ScheduleDemoSuccessRoute
+  '/crm/': typeof CrmIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -180,6 +224,7 @@ export interface FileRouteTypes {
     | '/auth-workspace'
     | '/compliance'
     | '/contact'
+    | '/crm'
     | '/crm-workspace'
     | '/enterprise-crm'
     | '/insights'
@@ -190,7 +235,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/settings'
     | '/compliance/$slug'
+    | '/crm/companies'
+    | '/crm/contacts'
+    | '/crm/leads'
     | '/schedule-demo/success'
+    | '/crm/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -209,7 +258,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/settings'
     | '/compliance/$slug'
+    | '/crm/companies'
+    | '/crm/contacts'
+    | '/crm/leads'
     | '/schedule-demo/success'
+    | '/crm'
   id:
     | '__root__'
     | '/'
@@ -218,6 +271,7 @@ export interface FileRouteTypes {
     | '/auth-workspace'
     | '/compliance'
     | '/contact'
+    | '/crm'
     | '/crm-workspace'
     | '/enterprise-crm'
     | '/insights'
@@ -228,7 +282,11 @@ export interface FileRouteTypes {
     | '/admin/bookings'
     | '/admin/settings'
     | '/compliance/$slug'
+    | '/crm/companies'
+    | '/crm/contacts'
+    | '/crm/leads'
     | '/schedule-demo/success'
+    | '/crm/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -238,6 +296,7 @@ export interface RootRouteChildren {
   AuthWorkspaceRoute: typeof AuthWorkspaceRoute
   ComplianceRoute: typeof ComplianceRouteWithChildren
   ContactRoute: typeof ContactRoute
+  CrmRoute: typeof CrmRouteWithChildren
   CrmWorkspaceRoute: typeof CrmWorkspaceRoute
   EnterpriseCrmRoute: typeof EnterpriseCrmRoute
   InsightsRoute: typeof InsightsRoute
@@ -301,6 +360,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CrmWorkspaceRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/crm': {
+      id: '/crm'
+      path: '/crm'
+      fullPath: '/crm'
+      preLoaderRoute: typeof CrmRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/contact': {
       id: '/contact'
       path: '/contact'
@@ -343,12 +409,40 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/crm/': {
+      id: '/crm/'
+      path: '/'
+      fullPath: '/crm/'
+      preLoaderRoute: typeof CrmIndexRouteImport
+      parentRoute: typeof CrmRoute
+    }
     '/schedule-demo/success': {
       id: '/schedule-demo/success'
       path: '/schedule-demo/success'
       fullPath: '/schedule-demo/success'
       preLoaderRoute: typeof ScheduleDemoSuccessRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/crm/leads': {
+      id: '/crm/leads'
+      path: '/leads'
+      fullPath: '/crm/leads'
+      preLoaderRoute: typeof CrmLeadsRouteImport
+      parentRoute: typeof CrmRoute
+    }
+    '/crm/contacts': {
+      id: '/crm/contacts'
+      path: '/contacts'
+      fullPath: '/crm/contacts'
+      preLoaderRoute: typeof CrmContactsRouteImport
+      parentRoute: typeof CrmRoute
+    }
+    '/crm/companies': {
+      id: '/crm/companies'
+      path: '/companies'
+      fullPath: '/crm/companies'
+      preLoaderRoute: typeof CrmCompaniesRouteImport
+      parentRoute: typeof CrmRoute
     }
     '/compliance/$slug': {
       id: '/compliance/$slug'
@@ -386,6 +480,22 @@ const ComplianceRouteWithChildren = ComplianceRoute._addFileChildren(
   ComplianceRouteChildren,
 )
 
+interface CrmRouteChildren {
+  CrmCompaniesRoute: typeof CrmCompaniesRoute
+  CrmContactsRoute: typeof CrmContactsRoute
+  CrmLeadsRoute: typeof CrmLeadsRoute
+  CrmIndexRoute: typeof CrmIndexRoute
+}
+
+const CrmRouteChildren: CrmRouteChildren = {
+  CrmCompaniesRoute: CrmCompaniesRoute,
+  CrmContactsRoute: CrmContactsRoute,
+  CrmLeadsRoute: CrmLeadsRoute,
+  CrmIndexRoute: CrmIndexRoute,
+}
+
+const CrmRouteWithChildren = CrmRoute._addFileChildren(CrmRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
@@ -393,6 +503,7 @@ const rootRouteChildren: RootRouteChildren = {
   AuthWorkspaceRoute: AuthWorkspaceRoute,
   ComplianceRoute: ComplianceRouteWithChildren,
   ContactRoute: ContactRoute,
+  CrmRoute: CrmRouteWithChildren,
   CrmWorkspaceRoute: CrmWorkspaceRoute,
   EnterpriseCrmRoute: EnterpriseCrmRoute,
   InsightsRoute: InsightsRoute,

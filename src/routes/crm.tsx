@@ -80,7 +80,8 @@ function CRMShell() {
 
       <nav className="mt-6 flex flex-wrap gap-1 rounded-full border border-border bg-[var(--elevated)] p-1">
         {tabs.map((t) => {
-          const active = t.exact ? path === t.to : path.startsWith(t.to);
+          const exact = "exact" in t && t.exact;
+          const active = exact ? path === t.to : path.startsWith(t.to);
           return (
             <Link
               key={t.to}
