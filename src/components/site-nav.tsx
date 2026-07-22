@@ -11,6 +11,7 @@ const links = [
   { to: "/compliance", label: "Compliance" },
   { to: "/ivan-os", label: "IVAN OS" },
   { to: "/enterprise-crm", label: "Enterprise CRM" },
+  { to: "/crm", label: "CRM" },
   { to: "/crm-workspace", label: "CRM Workspace" },
   { to: "/auth-workspace", label: "Auth Workspace" },
   { to: "/mobile-entry", label: "Mobile Entry" },
